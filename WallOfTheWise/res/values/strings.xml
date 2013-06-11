@@ -1,11 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">Wall of the Wise</string>
-    
+
     <!-- Activity Titles -->
-	<string name="activity_title_list">Choose URL</string>
-	<string name="activity_title_count">Post Counts</string>
-    
+    <string name="title_activity_url_list">Choose URL</string>
+    <string name="title_activity_post_count">Post Counts</string>
+
     <!-- Main Activity list items -->
     <string-array name="url_list">
         <item>http://slicnet.com/seed1/seed1/6/2/8/7/h/sd</item>
@@ -13,12 +14,12 @@
         <item>http://slicnet.com/seed1/seed1/6/2/8/3/h/sd</item>
         <item>Custom Url</item>
     </string-array>
-    
+
     <!-- Custom URL dialog -->
-    <string name="url_dialog_tile">Custom Url</string>
+    <string name="url_dialog_title">Custom Url</string>
     <string name="url_dialog_message">Please provide a wall URL:</string>
     <string name="url_dialog_default">http://slicnet.com/</string>
-    
+
     <!-- Table headings -->
     <string name="heading_name">Avatar</string>
     <string name="heading_post_count">Posts</string>
