@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView 
+        style="@style/tableText"
+        android:id="@+id/name"
+        />
+    <TextView 
+        style="@style/tableText"
+        android:id="@+id/posts"
+        />
+</TableRow>
