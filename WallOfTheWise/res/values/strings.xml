@@ -4,7 +4,6 @@
     <string name="app_name">Wall of the Wise</string>
 
     <!-- Activity Titles -->
-    <string name="title_activity_url_list">Choose URL</string>
     <string name="title_activity_post_count">Post Counts</string>
 
     <!-- Main Activity list items -->
