@@ -8,6 +8,8 @@
     <style name="tableText" parent="android:Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
 	    <item name="android:layout_height">wrap_content</item>
+	    <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
+	    <item name="android:textSize">20sp</item>
     </style>
 	<style name="tableHeading" parent="tableText">
 	    <item name="android:textStyle">bold</item>
