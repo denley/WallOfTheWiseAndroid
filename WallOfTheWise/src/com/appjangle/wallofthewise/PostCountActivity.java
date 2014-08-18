@@ -14,6 +14,7 @@ import com.appjangle.demos.appjanglejavademo.Calculations;
 
 import java.util.Map;
 
+import de.mxro.async.Async;
 import io.nextweb.Link;
 import io.nextweb.Node;
 import io.nextweb.Session;
@@ -24,6 +25,7 @@ import io.nextweb.jre.Nextweb;
 import io.nextweb.operations.callbacks.NodeListener;
 
 import de.mxro.fn.*;
+import de.mxro.async.callbacks.*;
 
 import io.nextweb.common.*;
 
@@ -51,7 +53,7 @@ public class PostCountActivity extends Activity {
 			finish();
 			return;
 		}
-        Log.d("", "ON CREATE");
+
         session = AppjangleAndroid.createSession(this.getApplicationContext());
 
 		setContentView(R.layout.activity_post_count_loading);
@@ -64,7 +66,7 @@ public class PostCountActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("", "ON DESTROY");
+
         monitor.get().stop().get();
         session.close().get();
         session = null;
@@ -87,9 +89,19 @@ public class PostCountActivity extends Activity {
 
             // Data callback
             posts.get(new Closure<Node>() {
-                public void apply(Node n) {
-                	loadContent(n);
-                	installMonitor(n);
+                public void apply(final Node n) {
+                	loadContent(n, new SimpleCallback() {
+                        @Override
+                        public void onSuccess() {
+                            installMonitor(n);
+                        }
+
+                        @Override
+                        public void onFailure(Throwable throwable) {
+                            showError(throwable);
+                        }
+                    });
+
                 }
             });
         } catch (Throwable t) {
@@ -125,18 +137,19 @@ public class PostCountActivity extends Activity {
 	            posts.reload(2).get(new Closure<Node>() {
 	                @Override
 	                public void apply(Node n) {
-	                     loadContent(posts);
+	                     loadContent(posts, Async.doNothing());
 	                }
 	            });
 	        }
 	    });
         monitor.get(new Closure<Monitor>() {
-	        public void apply(Monitor m) {}
-	    });
+            public void apply(Monitor m) {
+            }
+        });
 	}
 	
 	/** Loads and then displays the post count for the data contained in the given node */
-	private void loadContent(final Node n){
+	private void loadContent(final Node n, final SimpleCallback callback){
 		// Thread network connections
     	new Thread(){
     		public void run(){
@@ -144,14 +157,14 @@ public class PostCountActivity extends Activity {
                 final Map<String, Integer> results = c.calculatePostsPerUser(n);
                 
                 // Show the data to the user
-                loadContent(results);
+                loadContent(results, callback);
     		}
     	}.start();
 	}
 	
 	
 	/** Shows the given name & posts data in a table. Can be called from any thread */
-	private void loadContent(final Map<String, Integer> content){
+	private void loadContent(final Map<String, Integer> content, final SimpleCallback callback){
 		runOnUiThread(new Runnable(){
         	public void run(){
 				setContentView(R.layout.activity_post_count);
@@ -172,6 +185,8 @@ public class PostCountActivity extends Activity {
 					name.setText(key);
 					posts.setText(count.toString());
 				}
+
+                callback.onSuccess();
         	}
         });
 	}
