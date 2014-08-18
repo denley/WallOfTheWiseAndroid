@@ -67,10 +67,22 @@ public class PostCountActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
 
-        monitor.get().stop().get();
-        session.close().get();
+        final Session oldSession = session;
+        final NextwebPromise<Monitor> oldMonitor = monitor;
+
         session = null;
         monitor = null;
+
+        new Thread() {
+            @Override
+            public void run() {
+                oldMonitor.get().stop().get();
+                oldSession.close().get();
+            }
+        }.start();
+
+
+
     }
 
     /** Loads the post data from the given url and displays it in the list */
