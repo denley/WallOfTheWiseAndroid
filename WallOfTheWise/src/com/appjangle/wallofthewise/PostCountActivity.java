@@ -33,7 +33,8 @@ public class PostCountActivity extends Activity {
 
 	// Required argument for displaying this Activity
 	public static final String ARG_URL = "url";
-	
+
+    private Session session;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +46,27 @@ public class PostCountActivity extends Activity {
 			finish();
 			return;
 		}
-		
+
+        session = AppjangleAndroid.createSession(this.getApplicationContext());
+
 		setContentView(R.layout.activity_post_count_loading);
 		
 		// Load the content from the url
 		loadContent(intent.getStringExtra(ARG_URL));
+
 	}
-	
-	/** Loads the post data from the given url and displays it in the list */
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        session.close().get();
+
+    }
+
+    /** Loads the post data from the given url and displays it in the list */
 	private void loadContent(final String url){
-		final Session session = AppjangleAndroid.createSession(this.getApplicationContext());
+
         try {
            
             final Link posts = session.node(url);
@@ -97,8 +109,8 @@ public class PostCountActivity extends Activity {
 	
 	/** Sets up a monitor to update the view when new posts are added */
 	private void installMonitor(final Node posts) {
-	    Session monitorSession = AppjangleAndroid.createSession(this.getApplicationContext());
-	    monitorSession.node(posts).monitor().setInterval(Interval.FAST)
+
+	    session.node(posts).monitor().setInterval(Interval.FAST)
 	                                        .setDepth(2)
 	                                        .addListener(new NodeListener() {
 
