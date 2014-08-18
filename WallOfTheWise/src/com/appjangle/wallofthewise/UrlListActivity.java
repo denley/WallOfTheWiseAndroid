@@ -16,7 +16,7 @@ public class UrlListActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_url_list);
+		setContentView(R.layout.activity_url_list_new);
 		
 		final String[] items = getResources().getStringArray(R.array.url_list);
 		
@@ -26,7 +26,16 @@ public class UrlListActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		switch(position){
-		case 3:
+            case 0:
+                startPostCount("http://slicnet.com/seed1/seed1/6/2/8/7/h/sd");
+                break;
+            case 1:
+                startPostCount("http://slicnet.com/seed1/seed1/6/2/7/9/h/sd");
+                break;
+            case 2:
+                startPostCount("http://slicnet.com/seed1/seed1/6/2/8/3/h/sd");
+                break;
+            case 3:
 			final EditText input = new EditText(this);
 			input.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
 			input.setText(R.string.url_dialog_default);
@@ -46,7 +55,7 @@ public class UrlListActivity extends ListActivity {
 			.show();
 			break;
 		default:
-			startPostCount((String)getListView().getItemAtPosition(position));
+
 			break;
 		}
 	}

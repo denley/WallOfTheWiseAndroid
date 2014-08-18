@@ -8,9 +8,9 @@
 
     <!-- Main Activity list items -->
     <string-array name="url_list">
-        <item>http://slicnet.com/seed1/seed1/6/2/8/7/h/sd</item>
-        <item>http://slicnet.com/seed1/seed1/6/2/7/9/h/sd</item>
-        <item>http://slicnet.com/seed1/seed1/6/2/8/3/h/sd</item>
+        <item>Example Board 1</item>
+        <item>Example Board 2</item>
+        <item>Example Board 3</item>
         <item>Custom Url</item>
     </string-array>
 
