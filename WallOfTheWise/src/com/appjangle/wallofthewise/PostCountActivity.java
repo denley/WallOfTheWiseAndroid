@@ -1,19 +1,5 @@
 package com.appjangle.wallofthewise;
 
-import io.nextweb.Link;
-import io.nextweb.Node;
-import io.nextweb.Session;
-import io.nextweb.common.Interval;
-import io.nextweb.common.Monitor;
-import io.nextweb.common.MonitorContext;
-import io.nextweb.fn.Closure;
-import io.nextweb.fn.ExceptionListener;
-import io.nextweb.fn.ExceptionResult;
-import io.nextweb.jre.Nextweb;
-import io.nextweb.operations.callbacks.NodeListener;
-
-import java.util.Map;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +9,25 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.appjangle.android.AppjangleAndroid;
 import com.appjangle.demos.appjanglejavademo.Calculations;
+
+import java.util.Map;
+
+import io.nextweb.Link;
+import io.nextweb.Node;
+import io.nextweb.Session;
+import io.nextweb.common.Interval;
+import io.nextweb.common.Monitor;
+import io.nextweb.common.MonitorContext;
+import io.nextweb.jre.Nextweb;
+import io.nextweb.operations.callbacks.NodeListener;
+
+import de.mxro.fn.*;
+
+import io.nextweb.common.*;
+
+import io.nextweb.promise.exceptions.*;
 
 public class PostCountActivity extends Activity {
 
@@ -50,7 +54,7 @@ public class PostCountActivity extends Activity {
 	
 	/** Loads the post data from the given url and displays it in the list */
 	private void loadContent(final String url){
-		final Session session = Nextweb.createSession();
+		final Session session = AppjangleAndroid.createSession(this.getApplicationContext());
         try {
            
             final Link posts = session.node(url);
@@ -93,7 +97,7 @@ public class PostCountActivity extends Activity {
 	
 	/** Sets up a monitor to update the view when new posts are added */
 	private void installMonitor(final Node posts) {
-	    Session monitorSession = Nextweb.createSession();
+	    Session monitorSession = AppjangleAndroid.createSession(this.getApplicationContext());
 	    monitorSession.node(posts).monitor().setInterval(Interval.FAST)
 	                                        .setDepth(2)
 	                                        .addListener(new NodeListener() {
