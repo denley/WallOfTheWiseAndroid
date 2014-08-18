@@ -27,6 +27,7 @@ import de.mxro.fn.*;
 
 import io.nextweb.common.*;
 
+import io.nextweb.promise.NextwebPromise;
 import io.nextweb.promise.exceptions.*;
 
 public class PostCountActivity extends Activity {
@@ -35,10 +36,14 @@ public class PostCountActivity extends Activity {
 	public static final String ARG_URL = "url";
 
     private Session session;
-	
+
+    private NextwebPromise<Monitor> monitor;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+        assert session == null;
 
 		// we require a URL argument
 		final Intent intent = getIntent();
@@ -46,7 +51,7 @@ public class PostCountActivity extends Activity {
 			finish();
 			return;
 		}
-
+        Log.d("", "ON CREATE");
         session = AppjangleAndroid.createSession(this.getApplicationContext());
 
 		setContentView(R.layout.activity_post_count_loading);
@@ -59,9 +64,11 @@ public class PostCountActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        Log.d("", "ON DESTROY");
+        monitor.get().stop().get();
         session.close().get();
-
+        session = null;
+        monitor = null;
     }
 
     /** Loads the post data from the given url and displays it in the list */
@@ -109,8 +116,8 @@ public class PostCountActivity extends Activity {
 	
 	/** Sets up a monitor to update the view when new posts are added */
 	private void installMonitor(final Node posts) {
-
-	    session.node(posts).monitor().setInterval(Interval.FAST)
+        assert monitor == null;
+	    monitor = session.node(posts).monitor().setInterval(Interval.FAST)
 	                                        .setDepth(2)
 	                                        .addListener(new NodeListener() {
 
@@ -122,7 +129,8 @@ public class PostCountActivity extends Activity {
 	                }
 	            });
 	        }
-	    }).get(new Closure<Monitor>() {
+	    });
+        monitor.get(new Closure<Monitor>() {
 	        public void apply(Monitor m) {}
 	    });
 	}
