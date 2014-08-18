@@ -57,8 +57,8 @@ public class PostCountActivity extends Activity {
 	}
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
 
         session.close().get();
 
