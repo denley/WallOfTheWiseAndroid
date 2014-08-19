@@ -1,4 +1,4 @@
-package com.appjangle.wallofthewise;
+package com.appjangle.wallofthewise2;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;

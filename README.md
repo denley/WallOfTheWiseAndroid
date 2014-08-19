@@ -11,7 +11,7 @@ An example output post count is shown below.
 
 ![Screenshot](/screenshot.png)
 
-You can install this app from the [Google Play Store](https://play.google.com/store/apps/details?id=com.appjangle.wallofthewise).
+You can install this app from the [Google Play Store](https://play.google.com/store/apps/details?id=com.appjangle.wallofthewise2).
 
 License
 ====================

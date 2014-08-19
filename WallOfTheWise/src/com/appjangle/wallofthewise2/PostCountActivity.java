@@ -1,4 +1,4 @@
-package com.appjangle.wallofthewise;
+package com.appjangle.wallofthewise2;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,13 +21,10 @@ import io.nextweb.Session;
 import io.nextweb.common.Interval;
 import io.nextweb.common.Monitor;
 import io.nextweb.common.MonitorContext;
-import io.nextweb.jre.Nextweb;
 import io.nextweb.operations.callbacks.NodeListener;
 
 import de.mxro.fn.*;
 import de.mxro.async.callbacks.*;
-
-import io.nextweb.common.*;
 
 import io.nextweb.promise.NextwebPromise;
 import io.nextweb.promise.exceptions.*;
