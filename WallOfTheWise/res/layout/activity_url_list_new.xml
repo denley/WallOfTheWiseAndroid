@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="This app calculates the number of posts made per user on message boards created with the Appjangle Showcase application (appjangle.com/showcase).\n\nClick on one of the example boards below or create your own wall on the Appjangle Showcase and then enter the URL here.\n"
+            android:id="@+id/textView"
+            android:elegantTextHeight="false"
+            android:autoText="false"
+            style="@style/tableText" />
+    </LinearLayout>
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/activity_url_list"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>
